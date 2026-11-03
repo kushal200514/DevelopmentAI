@@ -1,0 +1,28 @@
+Step 1 – Create project folder
+Open VS Code.
+
+Create a folder named:
+
+node_lab
+
+Open this folder in VS Code.
+
+Step 2 – Create JavaScript file
+Inside node_lab, create:
+
+server.js
+
+Step 3 – Open terminal
+Open VS Code terminal using:
+
+Ctrl + ~
+
+Check your location:
+pwd
+
+
+Make sure you are inside node_lab.
+
+Step 4 – Check Node.js
+Run:
+node -v

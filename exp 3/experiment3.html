@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Manipulation</title>
+</head>
+<body>
+
+    <input type="text" id="itemInput"
+           placeholder="Enter item">
+
+    <button onclick="addItem()">
+        Add Item
+    </button>
+
+    <button onclick="modifyItems()">
+        Modify All
+    </button>
+
+    <ul id="itemList"></ul>
+
+    <script>
+
+        function addItem() {
+
+            const input =
+                document.getElementById('itemInput');
+
+            const li =
+                document.createElement('li');
+
+            li.textContent = input.value;
+
+            const delBtn =
+                document.createElement('button');
+
+            delBtn.textContent = 'Delete';
+
+            delBtn.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(delBtn);
+
+            document.getElementById('itemList')
+                .appendChild(li);
+
+            input.value = '';
+        }
+
+        function modifyItems() {
+
+            const items =
+                document.querySelectorAll('#itemList li');
+
+            items.forEach(item => {
+
+                item.firstChild.textContent =
+                    item.firstChild.textContent.toUpperCase();
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>

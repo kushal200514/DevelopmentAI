@@ -1,0 +1,20 @@
+// 1. Select database
+use fsdDB
+
+// 2. Insert multiple records
+db.students.insertMany([...])
+
+// 3. Read all records
+db.students.find().pretty()
+
+// 4. Read with condition
+db.students.find({ dept: "CSE" })
+
+// 5. Update record
+db.students.updateOne(
+    { student_id: 1 },
+    { $set: { marks: 92 } }
+)
+
+// 6. Delete record
+db.students.deleteOne({ student_id: 3 })

@@ -1,0 +1,51 @@
+/* Navigation bar using Flexbox */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f3864;
+    padding: 10px 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Content using Grid */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Content boxes */
+
+.box {
+    background-color: lightblue;
+    padding: 20px;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    background-color: #1f3864;
+    color: white;
+    padding: 10px;
+}
+
+/* Media Query */
+
+@media (max-width: 600px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+}
+

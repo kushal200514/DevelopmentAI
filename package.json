@@ -1,0 +1,11 @@
+{
+  "name": "fsd-codevault-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FSD CodeVault - Full Stack Development Lab Library (Lab 01-13)",
+  "scripts": {
+    "dev": "npm --prefix fsd-codevault run dev",
+    "build": "npm --prefix fsd-codevault run build",
+    "preview": "npm --prefix fsd-codevault run preview"
+  }
+}
