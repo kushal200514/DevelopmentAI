@@ -1255,28 +1255,34 @@ export const experiments = [
       {
         "filename": "commands for mongodb",
         "language": "javascript",
-        "description": "MongoDB Shell commands for database selection, multiple insertions, querying, field updating with $set, and document deletion.",
-        "completeCode": "// 1. Select database\nuse fsdDB\n\n// 2. Insert multiple records\ndb.students.insertMany([...])\n\n// 3. Read all records\ndb.students.find().pretty()\n\n// 4. Read with condition\ndb.students.find({ dept: \"CSE\" })\n\n// 5. Update record\ndb.students.updateOne(\n    { student_id: 1 },\n    { $set: { marks: 92 } }\n)\n\n// 6. Delete record\ndb.students.deleteOne({ student_id: 3 })"
+        "description": "MongoDB Shell (mongosh) commands implementing all 6 CRUD operations: database selection, insertMany, find.pretty, conditional filtering, updateOne with $set, deleteOne, and final collection verification.",
+        "completeCode": "// ==========================================\n// Experiment 12: MongoDB CRUD Operations (mongosh)\n// ==========================================\n\n// Step 1: Select / Switch to database\nuse fsdDB\n\n// Operation 1 — CREATE: Insert student records\ndb.students.insertMany([\n  { student_id: 1, name: \"Rohit Kumar\", dept: \"CSE\", marks: 85 },\n  { student_id: 2, name: \"Ananya Sharma\", dept: \"ISE\", marks: 90 },\n  { student_id: 3, name: \"Vikram Rao\", dept: \"CSE\", marks: 78 }\n])\n\n// Operation 2 — READ: Display all students\ndb.students.find().pretty()\n\n// Operation 3 — READ with condition: Filter by department\ndb.students.find({ dept: \"CSE\" })\n\n// Operation 4 — UPDATE: Change student marks (Rohit Kumar: 85 -> 92)\ndb.students.updateOne(\n  { student_id: 1 },\n  { $set: { marks: 92 } }\n)\n\n// Operation 5 — DELETE: Delete a student (Vikram Rao)\ndb.students.deleteOne({ student_id: 3 })\n\n// Operation 6 — Verify the final collection (Only Rohit & Ananya remain)\ndb.students.find().pretty()"
       }
     ],
     "runInstructions": [
-      "Start the MongoDB daemon service in terminal if not running: mongod",
+      "Start the local MongoDB daemon in your terminal (if not already running): mongod",
       "Open a new terminal window and connect to the MongoDB Shell: mongosh",
       "Switch to or create the laboratory database: use fsdDB",
-      "Insert student documents into the students collection: db.students.insertMany([...])",
-      "Query and format all documents: db.students.find().pretty()",
-      "Query students in CSE department: db.students.find({ dept: \"CSE\" })",
-      "Update student marks: db.students.updateOne({ student_id: 1 }, { $set: { marks: 92 } })",
-      "Delete student record: db.students.deleteOne({ student_id: 3 })",
-      "Launch MongoDB Compass, connect to mongodb://localhost:27017, and visually inspect fsdDB -> students."
+      "Operation 1 (CREATE): Insert 3 student records: db.students.insertMany([...])",
+      "Operation 2 (READ): Display all documents in formatted JSON: db.students.find().pretty()",
+      "Operation 3 (READ with Condition): Filter only CSE students: db.students.find({ dept: 'CSE' })",
+      "Operation 4 (UPDATE): Change Rohit Kumar's marks from 85 to 92 using $set: db.students.updateOne({ student_id: 1 }, { $set: { marks: 92 } })",
+      "Operation 5 (DELETE): Remove Vikram Rao from collection: db.students.deleteOne({ student_id: 3 })",
+      "Operation 6 (VERIFY): Query final collection to confirm only 2 students remain: db.students.find().pretty()",
+      "Open MongoDB Compass, connect to mongodb://localhost:27017, and visually verify fsdDB -> students."
     ],
     "commands": [
       "mongod",
       "mongosh",
       "use fsdDB",
+      "db.students.insertMany([ { student_id: 1, name: \"Rohit Kumar\", dept: \"CSE\", marks: 85 }, { student_id: 2, name: \"Ananya Sharma\", dept: \"ISE\", marks: 90 }, { student_id: 3, name: \"Vikram Rao\", dept: \"CSE\", marks: 78 } ])",
+      "db.students.find().pretty()",
+      "db.students.find({ dept: \"CSE\" })",
+      "db.students.updateOne({ student_id: 1 }, { $set: { marks: 92 } })",
+      "db.students.deleteOne({ student_id: 3 })",
       "db.students.find().pretty()"
     ],
-    "expectedOutput": "MongoDB Shell (mongosh) Session:\ntest> use fsdDB\nswitched to db fsdDB\n\nfsdDB> db.students.insertMany([\n  { student_id: 1, name: \"Rohit Kumar\", dept: \"CSE\", marks: 85 },\n  { student_id: 2, name: \"Ananya Sharma\", dept: \"ISE\", marks: 90 },\n  { student_id: 3, name: \"Vikram Rao\", dept: \"CSE\", marks: 78 }\n])\n{\n  acknowledged: true,\n  insertedIds: {\n    '0': ObjectId('6724a1b2c3d4e5f6a7b8c9d0'),\n    '1': ObjectId('6724a1b2c3d4e5f6a7b8c9d1'),\n    '2': ObjectId('6724a1b2c3d4e5f6a7b8c9d2')\n  }\n}\n\nfsdDB> db.students.updateOne({ student_id: 1 }, { $set: { marks: 92 } })\n{ acknowledged: true, insertedId: null, matchedCount: 1, modifiedCount: 1, upsertedCount: 0 }\n\nfsdDB> db.students.deleteOne({ student_id: 3 })\n{ acknowledged: true, deletedCount: 1 }\n\nfsdDB> db.students.find().pretty()\n[\n  { _id: ObjectId('...'), student_id: 1, name: 'Rohit Kumar', dept: 'CSE', marks: 92 },\n  { _id: ObjectId('...'), student_id: 2, name: 'Ananya Sharma', dept: 'ISE', marks: 90 }\n]",
+    "expectedOutput": "==================================================\nMAIN PRACTICAL — MONGODB CRUD COMMANDS & RESULTS\n==================================================\n\n1. Operation 1 — CREATE: Insert student records\nExecute in mongosh:\n> use fsdDB\nswitched to db fsdDB\n\n> db.students.insertMany([\n    { student_id: 1, name: \"Rohit Kumar\", dept: \"CSE\", marks: 85 },\n    { student_id: 2, name: \"Ananya Sharma\", dept: \"ISE\", marks: 90 },\n    { student_id: 3, name: \"Vikram Rao\", dept: \"CSE\", marks: 78 }\n  ])\n\nWhat does this do?\n• db — Refers to the current database (fsdDB).\n• students — Collection name.\n• insertMany() — Inserts multiple documents. Each { } represents one student document.\n\nExpected result:\n{\n  acknowledged: true,\n  insertedIds: {\n    '0': ObjectId('6724a1b2c3d4e5f6a7b8c9d0'),\n    '1': ObjectId('6724a1b2c3d4e5f6a7b8c9d1'),\n    '2': ObjectId('6724a1b2c3d4e5f6a7b8c9d2')\n  }\n}\n--> 3 student records inserted.\n\n--------------------------------------------------\n2. Operation 2 — READ: Display all students\nExecute:\n> db.students.find().pretty()\n\nWhat does this do?\n• find() retrieves documents from the collection.\n• pretty() displays the documents in a readable format.\n\nExpected output:\n[\n  {\n    _id: ObjectId(\"...\"),\n    student_id: 1,\n    name: \"Rohit Kumar\",\n    dept: \"CSE\",\n    marks: 85\n  },\n  {\n    _id: ObjectId(\"...\"),\n    student_id: 2,\n    name: \"Ananya Sharma\",\n    dept: \"ISE\",\n    marks: 90\n  },\n  {\n    _id: ObjectId(\"...\"),\n    student_id: 3,\n    name: \"Vikram Rao\",\n    dept: \"CSE\",\n    marks: 78\n  }\n]\n\n--------------------------------------------------\n3. Operation 3 — READ with condition (Filter CSE)\nExecute:\n> db.students.find({ dept: \"CSE\" })\n\nWhat does this do?\n• Displays only students whose department is CSE.\n• Remember: dept: \"CSE\" = Find CSE students only.\n\nExpected result:\n[\n  { _id: ObjectId(\"...\"), student_id: 1, name: \"Rohit Kumar\", dept: \"CSE\", marks: 85 },\n  { _id: ObjectId(\"...\"), student_id: 3, name: \"Vikram Rao\", dept: \"CSE\", marks: 78 }\n]\n--> Rohit Kumar (CSE, 85) and Vikram Rao (CSE, 78).\n\n--------------------------------------------------\n4. Operation 4 — UPDATE: Change student marks\nExecute:\n> db.students.updateOne(\n    { student_id: 1 },\n    { $set: { marks: 92 } }\n  )\n\nWhat does this do?\n• Updates Rohit Kumar's marks from 85 to 92.\n\nUnderstand the code breakdown:\n• updateOne()    --> Updates ONE matching document\n• student_id: 1  --> Finds Rohit\n• $set           --> Changes a specific field (without overwriting document)\n• marks: 92      --> New marks value\n\nExpected result:\n{\n  acknowledged: true,\n  insertedId: null,\n  matchedCount: 1,\n  modifiedCount: 1,\n  upsertedCount: 0\n}\n\n--------------------------------------------------\n5. Operation 5 — DELETE: Delete a student\nExecute:\n> db.students.deleteOne({ student_id: 3 })\n\nWhat does this do?\n• Deletes Vikram Rao's document from the students collection.\n\nExpected result:\n{\n  acknowledged: true,\n  deletedCount: 1\n}\n--> Student deleted successfully.\n\n--------------------------------------------------\n6. Operation 6 — Verify the final collection\nExecute:\n> db.students.find().pretty()\n\nExpected result (Only two student records remain):\n[\n  {\n    _id: ObjectId(\"...\"),\n    student_id: 1,\n    name: \"Rohit Kumar\",\n    dept: \"CSE\",\n    marks: 92\n  },\n  {\n    _id: ObjectId(\"...\"),\n    student_id: 2,\n    name: \"Ananya Sharma\",\n    dept: \"ISE\",\n    marks: 90\n  }\n]\n\nFinal Summary Table:\n=====================================================\nStudent         | Department | Status / Marks\n-----------------------------------------------------\nRohit Kumar     | CSE        | Marks updated to 92\nAnanya Sharma   | ISE        | Marks: 90 (Unchanged)\nVikram Rao      | CSE        | DELETED\n=====================================================",
     "screenshot": "",
     "vivaQuestions": [
       {
@@ -1311,10 +1317,13 @@ export const experiments = [
     "quickRevision": {
       "keyConcepts": [
         "RDBMS vs MongoDB: Database -> Database, Table -> Collection, Row -> Document, Column -> Field.",
-        "Default port: 27017.",
-        "use <dbname> selects or creates the database lazily.",
-        "db.<collection>.find() queries documents.",
-        "Always wrap updates in atomic operators like { $set: { marks: 92 } }."
+        "db refers to current active database; collection is auto-created on first insert.",
+        "insertMany() accepts an array of document objects [{}, {}, {}].",
+        "find().pretty() formats nested BSON documents into readable indented JSON.",
+        "Conditional queries: pass filter object e.g. { dept: 'CSE' } to find matching subset.",
+        "Always use $set in updates (db.students.updateOne({ filter }, { $set: { field: val } })) to avoid replacing the whole document.",
+        "deleteOne({ filter }) removes only the first document matching criteria.",
+        "Default MongoDB port: 27017."
       ],
       "importantFunctions": [
         "use fsdDB - Switch active database",
@@ -1325,8 +1334,10 @@ export const experiments = [
         "db.students.deleteOne(filter) - Single document delete"
       ],
       "memoryTips": [
-        "Remember: Always use $set when updating fields!",
-        "Compass connects by default to mongodb://localhost:27017."
+        "CRUD Command Mapping: insertMany (C), find / find({filter}) (R), updateOne with $set (U), deleteOne (D).",
+        "Remember the UPDATE anatomy: updateOne( { WHO }, { $set: { WHAT_CHANGES } } ).",
+        "Without $set, MongoDB replaces the ENTIRE document with whatever is in the second argument!",
+        "Remember: dept: 'CSE' = Find CSE students only."
       ],
       "commonErrors": [
         "Forgetting the $set operator in update queries.",

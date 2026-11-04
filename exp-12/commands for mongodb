@@ -1,20 +1,31 @@
-// 1. Select database
+// ==========================================
+// Experiment 12: MongoDB CRUD Operations (mongosh)
+// ==========================================
+
+// Step 1: Select / Switch to database
 use fsdDB
 
-// 2. Insert multiple records
-db.students.insertMany([...])
+// Operation 1 — CREATE: Insert student records
+db.students.insertMany([
+  { student_id: 1, name: "Rohit Kumar", dept: "CSE", marks: 85 },
+  { student_id: 2, name: "Ananya Sharma", dept: "ISE", marks: 90 },
+  { student_id: 3, name: "Vikram Rao", dept: "CSE", marks: 78 }
+])
 
-// 3. Read all records
+// Operation 2 — READ: Display all students
 db.students.find().pretty()
 
-// 4. Read with condition
+// Operation 3 — READ with condition: Filter by department
 db.students.find({ dept: "CSE" })
 
-// 5. Update record
+// Operation 4 — UPDATE: Change student marks (Rohit Kumar: 85 -> 92)
 db.students.updateOne(
-    { student_id: 1 },
-    { $set: { marks: 92 } }
+  { student_id: 1 },
+  { $set: { marks: 92 } }
 )
 
-// 6. Delete record
+// Operation 5 — DELETE: Delete a student (Vikram Rao)
 db.students.deleteOne({ student_id: 3 })
+
+// Operation 6 — Verify the final collection (Only Rohit & Ananya remain)
+db.students.find().pretty()
